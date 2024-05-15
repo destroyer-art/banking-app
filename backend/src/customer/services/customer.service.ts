@@ -9,13 +9,13 @@ export const createCustomer = async (req: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
-    const { firstName, lastName, birthDate, gsmNumber } =
+    const { firstName, lastName, dateOfBirth, gsmNumber } =
       req.payload as CreateCustomerInput;
 
     const customerInput: Partial<Customer> = {
       firstName,
       lastName,
-      birthDate,
+      dateOfBirth,
       gsmNumber,
     };
 

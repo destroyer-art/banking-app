@@ -23,8 +23,8 @@ export class Customer implements IAuditableEntity {
   @Column({ default: 100 })
   balance: number;
 
-  @CreateDateColumn({ name: "birth_date", type: "timestamp with time zone" })
-  birthDate: Date;
+  @CreateDateColumn({ name: "date_of_birth", type: "timestamp with time zone" })
+  dateOfBirth: Date;
 
   @CreateDateColumn({ name: "created_at", type: "timestamp with time zone" })
   createdAt: Date;

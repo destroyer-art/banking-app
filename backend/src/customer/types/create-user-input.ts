@@ -5,5 +5,5 @@ export class CreateCustomerInput {
 
   readonly gsmNumber: string;
 
-  readonly birthDate: Date;
+  readonly dateOfBirth: Date;
 }
