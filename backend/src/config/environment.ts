@@ -8,11 +8,11 @@ export const WEB_BASE_URL = process.env.WEB_BASE_URL;
 export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
-export const DATABASE_HOST = process.env.DATABASE_HOST;
-export const DATABASE_PORT = Number(process.env.DATABASE_PORT);
-export const DATABASE_DB = process.env.DATABASE_DB;
-export const DATABASE_USER = process.env.DATABASE_USER;
-export const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
+export const MSSQL_HOST = process.env.MSSQL_HOST;
+export const MSSQL_PORT = Number(process.env.MSSQL_PORT);
+export const MSSQL_DB = process.env.MSSQL_DB;
+export const MSSQL_USER = process.env.MSSQL_USER;
+export const MSSQL_PASSWORD = process.env.MSSQL_PASSWORD;
 
 export const POSTGRES_HOST = process.env.POSTGRES_HOST;
 export const POSTGRES_PORT = Number(process.env.POSTGRES_PORT);
