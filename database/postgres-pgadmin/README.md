@@ -1,4 +1,4 @@
-# 1. Run this command                 //inside the database folder
+# 1. Run this command                 //inside the postgres-pgadmin folder
 
      docker-compose up -d 
 
