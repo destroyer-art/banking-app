@@ -3,7 +3,7 @@
      docker-compose up -d 
 
 
-# 2. Go to LINK: SQL Server Management Studio (Download): Use These credentilas to connnect :
+# 2. Go to SQL Server Management Studio (Download first):
 
 
 
