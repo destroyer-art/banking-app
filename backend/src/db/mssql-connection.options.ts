@@ -1,22 +1,22 @@
 import { ConnectionOptions } from "typeorm";
 import path from "path";
 import {
-  DATABASE_DB,
-  DATABASE_HOST,
-  DATABASE_PASSWORD,
-  DATABASE_PORT,
-  DATABASE_USER,
+  MSSQL_DB,
+  MSSQL_HOST,
+  MSSQL_PASSWORD,
+  MSSQL_PORT,
+  MSSQL_USER,
 } from "../config/environment";
 
 
 export const mssqlConfig: ConnectionOptions = {
   type: "mssql",
   name: "default",
-  host: DATABASE_HOST,
-  port: DATABASE_PORT,
-  database: DATABASE_DB,
-  username: DATABASE_USER,
-  password: DATABASE_PASSWORD,
+  host: MSSQL_HOST,
+  port: MSSQL_PORT,
+  database: MSSQL_DB,
+  username: MSSQL_USER,
+  password: MSSQL_PASSWORD,
   entities: [path.join(__dirname, "..", "**/domain/models/*.model.{ts,js}")],
   synchronize: true,
   options: {

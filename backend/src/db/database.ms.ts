@@ -1,19 +1,19 @@
 import sql, { ConnectionPool } from "mssql";
 import path from "path";
 import {
-  DATABASE_DB,
-  DATABASE_HOST,
-  DATABASE_PASSWORD,
-  DATABASE_PORT,
-  DATABASE_USER,
+  MSSQL_DB,
+  MSSQL_HOST,
+  MSSQL_PASSWORD,
+  MSSQL_PORT,
+  MSSQL_USER,
 } from "../config/environment";
 
 const config = {
-  server: DATABASE_HOST,
-  port: DATABASE_PORT,
-  database: DATABASE_DB,
-  user: DATABASE_USER,
-  password: DATABASE_PASSWORD,
+  server: MSSQL_HOST,
+  port: MSSQL_PORT,
+  database: MSSQL_DB,
+  user: MSSQL_USER,
+  password: MSSQL_PASSWORD,
   options: {
     encrypt: false,
     entities: [path.join(__dirname, "..", "**/domain/models/*.model.{ts,js}")],
