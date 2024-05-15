@@ -1,5 +1,4 @@
-// Windows+R ==>  compmgmt.msc -> SQL Server Services -> ServiceApplication --> Network Configuration --> Enable TCP/IP
-
+import { ConnectionOptions } from "typeorm";
 import path from "path";
 import {
   DATABASE_DB,
@@ -9,7 +8,6 @@ import {
   DATABASE_USER,
 } from "../config/environment";
 
-import { ConnectionOptions } from "typeorm";
 
 export const mssqlConfig: ConnectionOptions = {
   type: "mssql",
@@ -21,4 +19,7 @@ export const mssqlConfig: ConnectionOptions = {
   password: DATABASE_PASSWORD,
   entities: [path.join(__dirname, "..", "**/domain/models/*.model.{ts,js}")],
   synchronize: true,
+  options: {
+    encrypt: false,
+  },
 };

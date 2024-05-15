@@ -3,10 +3,11 @@ import { customerRoutes } from "./customer/routes/customer.router";
 import { initDatabase } from "./db/database";
 import { welcomeRoutes } from "./routes/welcome.router";
 import { transactionRoutes } from "./transaction/routes/transaction.router";
+import { PORT } from "./config/environment";
 
 export const server: Server = HAPI.server({
   host: "localhost",
-  port: 3000,
+  port: PORT,
 });
 
 const init = async () => {
