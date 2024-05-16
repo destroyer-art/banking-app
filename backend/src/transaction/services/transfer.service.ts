@@ -26,9 +26,11 @@ export const transfer = async (request, h) => {
     const { amount, customerId, targetGSMNumber } =
       request.payload as TransferInput;
 
+
     const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
+
 
     if (!customer) {
       return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);
@@ -53,8 +55,8 @@ export const transfer = async (request, h) => {
 
     // Create Pending Transaction
     const newTransaction = await queryRunner.manager.save(Transaction, {
-      targetId: targetCustomer.id, // Customer ID
-      sourceId: customer.id, // Customer ID
+      targetId: targetCustomer.id, // Target Customer ID
+      sourceId: customer.id, // Current Customer ID
       amount,
       type: TransactionType.TRANSFER,
     });
@@ -79,7 +81,7 @@ export const transfer = async (request, h) => {
 
     // Update Target Customer Balance
     targetCustomer.balance = targetCustomer.balance + amount;
-    await queryRunner.manager.save(Customer, customer);
+    await queryRunner.manager.save(Customer, targetCustomer);
 
     // Send Response to the end User about Opearion
     return sendResponse(transaction, h);

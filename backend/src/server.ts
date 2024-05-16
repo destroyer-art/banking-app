@@ -8,6 +8,13 @@ import { PORT } from "./config/environment";
 export const server: Server = HAPI.server({
   host: "localhost",
   port: PORT,
+  "routes": {
+    "cors": {
+        "origin": ["http://localhost:5173"],
+        "headers": ["Accept", "Content-Type"],
+        "additionalHeaders": ["X-Requested-With"]
+    }
+}
 });
 
 const init = async () => {

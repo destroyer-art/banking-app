@@ -5,7 +5,7 @@ import { Customer } from "../domain/models/customer.model";
 import { CreateCustomerInput } from "../types/create-user-input";
 import { ErrorMessages } from "../../transaction/services/helper";
 
-export const createCustomer = async (req: Request, h: ResponseToolkit) => {
+export const registerCustomer = async (req: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
