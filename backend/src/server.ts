@@ -4,21 +4,21 @@ import { initDatabase } from "./db/database";
 import { welcomeRoutes } from "./routes/welcome.router";
 import { transactionRoutes } from "./transaction/routes/transaction.router";
 import { PORT } from "./config/environment";
+import { rateLimiterMiddleware } from "./middlewares/rate-limiter";
+import { corsConig } from "./middlewares/cors-config";
 
 export const server: Server = HAPI.server({
   host: "localhost",
   port: PORT,
-  "routes": {
-    "cors": {
-        "origin": ["http://localhost:5173"],
-        "headers": ["Accept", "Content-Type"],
-        "additionalHeaders": ["X-Requested-With"]
-    }
-}
+  routes: {
+    cors: corsConig,
+  },
 });
 
 const init = async () => {
   await initDatabase(); // Initialize database connection
+
+  server.ext("onRequest", rateLimiterMiddleware);
 
   server.route(customerRoutes);
   server.route(transactionRoutes);

@@ -1,7 +1,7 @@
 import { ServerRoute } from "@hapi/hapi";
 import { createCustomerSchema } from "../schemas/create.customer.schema";
-import { registerCustomer } from "../services/register-customer.service";
 import { getCustomer } from "../services/get-customer.service";
+import { registerCustomer } from "../services/register-customer.service";
 
 export const customerRoutes: ServerRoute[] = [
   {
