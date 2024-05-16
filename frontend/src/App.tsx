@@ -45,52 +45,52 @@ function App() {
   return (
     <div className="flex items-center justify-center bg-slate-400 pt-6 h-screen">
       <div className="flex h-4/5 w-9/12 bg-slate-800">
-        <div className="bg-blue-200">
-          <Sidebar className="h-full ">
+        <div className="bg-blue-200"style={{ width: "25%" }}>
+          <Sidebar className="h-full" style={{ width: "100%" }}>
             {customer && (
               <b>
-                <div className="flex-row flex p-2">
+                <div className="flex-row flex p-2 m-4">
                   <span>
                     Hey, {`${customer?.firstName} ${customer?.lastName}`}
                   </span>
                 </div>
 
-                <div className="flex-row flex p-2">
+                <div className="flex-row flex p-2 m-4">
                   <span>{`Balance: ${customer?.balance} AZN`}</span>
                 </div>
 
-                <div className="flex-row flex p-2">
+                <div className="flex-row flex p-2 m-4">
                   <span>{`GSM Number: ${customer?.gsmNumber}`}</span>
                 </div>
               </b>
             )}
-            <Menu>
+            <Menu className="m-4">
               <MenuItem
-                className="py-4 text-xl font-bold"
+                className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
                 onClick={() => handleMenuItemClick("Register")}
               >
                 Register
               </MenuItem>
               <MenuItem
-                className="py-4 text-xl font-bold"
+                className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
                 onClick={() => handleMenuItemClick("Top up Balance")}
               >
                 Top up Balance
               </MenuItem>
               <MenuItem
-                className="py-4 text-xl font-bold"
+                className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
                 onClick={() => handleMenuItemClick("Purchase")}
               >
                 Purchase
               </MenuItem>
               <MenuItem
-                className="py-4 text-xl font-bold"
+                className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
                 onClick={() => handleMenuItemClick("Refund")}
               >
                 Refund
               </MenuItem>
               <MenuItem
-                className="py-4 text-xl font-bold"
+                className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
                 onClick={() => handleMenuItemClick("Transfer")}
               >
                 Transfer
