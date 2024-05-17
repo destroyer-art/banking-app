@@ -21,12 +21,14 @@ export const topUp = async (request: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
-    const { customerId, amount, paymentProvider } =
-      request.payload as TopUpInput;
+    const { amount, paymentProvider } = request.payload as TopUpInput;
+
+    const customerId = request.auth["customer"].id;
 
     const customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
+
     if (!customer) {
       return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);
     }

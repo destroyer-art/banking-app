@@ -1,12 +1,13 @@
 import { ServerRoute } from "@hapi/hapi";
-import { refundSchema } from "..//schemas/refund.schema";
-import { purchase } from "..//services/purchase.service";
-import { refund } from "..//services/refund.service";
-import { topUp } from "..//services/top-up.service";
-import { transfer } from "..//services/transfer.service";
+import { extractTokenMiddleware } from "../../middlewares/extract-token";
 import { purchaseSchema } from "../schemas/purchase.schema";
+import { refundSchema } from "../schemas/refund.schema";
 import { topUpSchema } from "../schemas/top-up.schema";
 import { transferSchema } from "../schemas/transfer.schema";
+import { purchase } from "../services/purchase.service";
+import { refund } from "../services/refund.service";
+import { topUp } from "../services/top-up.service";
+import { transfer } from "../services/transfer.service";
 
 export const transactionRoutes: ServerRoute[] = [
   {
@@ -14,6 +15,7 @@ export const transactionRoutes: ServerRoute[] = [
     path: "/api/top-up",
     handler: topUp,
     options: {
+      pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
       validate: {
         payload: topUpSchema,
       },
@@ -24,6 +26,7 @@ export const transactionRoutes: ServerRoute[] = [
     path: "/api/purchase",
     handler: purchase,
     options: {
+      pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
       validate: {
         payload: purchaseSchema,
       },
@@ -34,6 +37,7 @@ export const transactionRoutes: ServerRoute[] = [
     path: "/api/refund",
     handler: refund,
     options: {
+      pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
       validate: {
         payload: refundSchema,
       },
@@ -44,6 +48,7 @@ export const transactionRoutes: ServerRoute[] = [
     path: "/api/transfer",
     handler: transfer,
     options: {
+      pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
       validate: {
         payload: transferSchema,
       },

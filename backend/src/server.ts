@@ -1,13 +1,12 @@
 import HAPI, { Server, ServerApplicationState } from "@hapi/hapi";
+import { authRoutes } from "./auth/routes/auth.router";
+import { PORT } from "./config/environment";
 import { customerRoutes } from "./customer/routes/customer.router";
 import { initDatabase } from "./db/database";
+import { corsConig } from "./middlewares/cors-config";
+import { rateLimiterMiddleware } from "./middlewares/rate-limiter";
 import { welcomeRoutes } from "./routes/welcome.router";
 import { transactionRoutes } from "./transaction/routes/transaction.router";
-import { PORT } from "./config/environment";
-import { rateLimiterMiddleware } from "./middlewares/rate-limiter";
-import { corsConig } from "./middlewares/cors-config";
-import { authRoutes } from "./auth/routes/auth.router";
-import { extractTokenMiddleware } from "./middlewares/extract-token";
 const JWT = require("hapi-auth-jwt2");
 
 export const server: Server = HAPI.server({
@@ -18,8 +17,7 @@ export const server: Server = HAPI.server({
   },
 });
 
-const registerMiddleware = (server: Server<ServerApplicationState>) => {
-  // server.ext("onRequest", extractTokenMiddleware);
+const registerMiddlewares = (server: Server<ServerApplicationState>) => {
   server.ext("onRequest", rateLimiterMiddleware);
  };
 
@@ -30,7 +28,7 @@ const init = async () => {
   // Register JWT auth plugin
   await server.register(JWT);
 
-  registerMiddleware(server);
+  registerMiddlewares(server);
 
   server.route(customerRoutes);
   server.route(authRoutes);

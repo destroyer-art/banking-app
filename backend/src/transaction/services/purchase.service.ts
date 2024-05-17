@@ -14,8 +14,9 @@ export const purchase = async (request: Request, h: ResponseToolkit) => {
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
-    const { customerId, amount, shoppingProvider } =
-      request.payload as PurchaseInput;
+    const { amount, shoppingProvider } = request.payload as PurchaseInput;
+
+    const customerId = request.auth["customer"].id;
 
     const customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },

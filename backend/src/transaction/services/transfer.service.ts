@@ -23,14 +23,13 @@ export const transfer = async (request, h) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
-    const { amount, customerId, targetGSMNumber } =
-      request.payload as TransferInput;
+    const { amount, targetGSMNumber } = request.payload as TransferInput;
 
+    const customerId = request.auth["customer"].id;
 
     const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
-
 
     if (!customer) {
       return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);

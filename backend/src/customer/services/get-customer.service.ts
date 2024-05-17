@@ -3,13 +3,12 @@ import { ResponseToolkit } from "@hapi/hapi/lib/types";
 import { appDataSource } from "../../db/database";
 import { ErrorMessages } from "../../transaction/services/helper";
 import { Customer } from "../domain/models/customer.model";
- 
-export const getCustomer = async (req: Request, h: ResponseToolkit) => {
- 
+
+export const getCustomer = async (request: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
-    const customerId = req.params.customerId;
+    const customerId = request.auth["customer"].id;
 
     const customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },

@@ -1,9 +1,12 @@
-import { ResponseToolkit } from "@hapi/hapi";
+import { Request, ResponseToolkit } from "@hapi/hapi";
 import { JwtPayload } from "auth/types/jwt-payload";
 import { decodeJwtToken } from "../auth/services/auth.service";
 import { ErrorMessages } from "../transaction/services/helper";
 
-export const extractTokenMiddleware = (request: any, h: ResponseToolkit) => {
+export const extractTokenMiddleware = (
+  request: Request,
+  h: ResponseToolkit
+) => {
   try {
     const authorizationHeader: string = request.headers["authorization"];
 
@@ -18,7 +21,9 @@ export const extractTokenMiddleware = (request: any, h: ResponseToolkit) => {
 
     const decodedToken: JwtPayload = decodeJwtToken(token);
 
-    request.jwtPayload = decodedToken;
+    request.auth["customer"] = decodedToken;
+
+    return h.continue;
   } catch (rejRes) {
     return h
       .response(ErrorMessages.TOKEN_VERIFICATION_ERROR)
