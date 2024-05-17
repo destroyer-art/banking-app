@@ -18,19 +18,19 @@ There are detailed informations about each service:   Check README.MD file insid
 
 
 
-## LIbraries
+## Main Libraries
 
-@hapi/hapi            -> The Hapi framework.
-@hapi/joi             -> Payload validation.
-@hapi/boom            -> Error Handling
-bcrypt                -> For hashing passwords.
-hapi-auth-jwt2        -> For JWT authentication.
-typeorm               -> ORM
-nodemon               -> Auto Restart
-pg                    -> Connection to Postgres
-mssql                 -> Connection to MSSQL
-jsonwebtoken          -> Authentication and Authorization
-rate-limiter-flexible -> Rate Limit Middleware
+1.  @hapi/hapi            -> The Hapi framework.
+2.  @hapi/joi             -> Payload validation.
+3.  @hapi/boom            -> Error Handling
+4.  bcrypt                -> For hashing passwords.
+5.  hapi-auth-jwt2        -> For JWT authentication.
+6.  typeorm               -> ORM
+7.  nodemon               -> Auto Restart
+8.  pg                    -> Connection to Postgres
+9.  mssql                 -> Connection to MSSQL
+10. jsonwebtoken          -> Authentication and Authorization
+11. rate-limiter-flexible -> Rate Limit Middleware
 
 
 
