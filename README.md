@@ -1,6 +1,13 @@
 # banking-app
-This is a Full Stack JS App (Node.js, Hapi.js, React.js, TypeScript)
 
+
+## Tech Stack
+
+1.  Node.js
+2.  Hapi.js (backend)
+3.  React.js (frontend)
+4.  TypeScript
+5.  Postgress and MS SQL Server
 
 
 # Backend Owerview:
