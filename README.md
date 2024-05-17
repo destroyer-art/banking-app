@@ -40,7 +40,7 @@ export enum Routes {
 }
 
 
-# LOGIN Endpoint Logic:
+## LOGIN Endpoint Logic:
 
 1. Extract the email and password from the req.payload object
 2. Find a customer with the specified email address.
@@ -52,7 +52,7 @@ export enum Routes {
 
 
 
-# REGISTER Endpoint Logic:
+## REGISTER Endpoint Logic:
 
 1. Extract the email and password from the req.payload object
 2. Find a customer with the specified email address.
@@ -64,7 +64,7 @@ export enum Routes {
 
 
 
-# PURCHASE Endpoint Logic:
+## PURCHASE Endpoint Logic:
 
 1. Start the transaction
 2. fetch the customer id from the Token
@@ -79,7 +79,7 @@ export enum Routes {
 
 
 
-# REFUND Endpoint Logic:
+## REFUND Endpoint Logic:
 
 1.  Start the transaction
 2.  fetch the customer id from the Token
@@ -97,7 +97,7 @@ export enum Routes {
 
 
 
-# TOP UP Endpoint Logic:
+## TOP UP Endpoint Logic:
 
 1. Start the transaction
 2. fetch the customer id from the Token
@@ -111,7 +111,7 @@ export enum Routes {
 
 
 
-# TRANSFER Endpoint Logic:
+## TRANSFER Endpoint Logic:
 
 1.  Start the transaction
 2.  fetch the customer id from the Token
