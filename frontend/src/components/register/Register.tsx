@@ -21,7 +21,7 @@ const Register: React.FC = () => {
   };
 
   const handleSubmit = async (values: RegisterInput, actions: any) => {
-    await registerCustomer(values, setNotification);
+    await register(values, setNotification);
     actions.setSubmitting(false);
   };
 
