@@ -158,7 +158,7 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 
 2. Using LocalStorage to store the JWTToken
 
-3. Input VAlidations
+3. Input Validations
 
 4. PHONE: Pattern( /^\+994\d{9}$/) , ErrorMessage(GSM Number must start with +994 and contain 9 digits after the country code)
 
