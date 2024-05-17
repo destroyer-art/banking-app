@@ -3,8 +3,9 @@ import { ResponseToolkit } from "@hapi/hapi/lib/types";
 import { Customer } from "../../customer/domain/models/customer.model";
 import { appDataSource } from "../../db/database";
 import { LoginInput } from "../types/login-input";
-import { JwtPayload } from "auth/types/jwt-payload";
+import { JwtPayload } from "../types/jwt-payload";
 import { generateJwtTokenAsync, checkValidations } from "./auth.service";
+import { ErrorMessages } from "../../shared/constants/error-messages";
 
 /*
 
@@ -29,6 +30,10 @@ export const login = async (req: Request, h: ResponseToolkit) => {
     const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { email },
     });
+
+    if (!customer) {
+      return h.response(ErrorMessages.EMAIL_OR_PASSWORD_IS_INCORRECT).code(400);
+    }
 
     // Verify Account in First Login
     if (!customer.emailVerified) {
@@ -55,7 +60,7 @@ export const login = async (req: Request, h: ResponseToolkit) => {
 
     return h.response(JWTToken);
   } catch (error) {
-    console.error("Error processing Purchase:", error);
-    return h.response("Error processing Purchase").code(500);
+    console.error("Error processing Login:", error);
+    return h.response("Error processing Login").code(500);
   }
 };

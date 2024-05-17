@@ -25,6 +25,19 @@ There are detailed informations about each service:
 Check README.MD file inside the specific(database/mssql-server, database/postgres-pgadmin) folders
 
 
+
+#### Run Backend Locally:
+
+1. run "npm run dev" command inside the backend folder
+
+
+#### Run Frontend Locally:
+
+1. run "npm run dev" command inside the frontend folder
+2. Go to "http://localhost:5173/"
+ 
+
+
 ## Security Appraches
 
 1. Authentication (Register, Login)
@@ -42,13 +55,12 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 1.  @hapi/hapi            -> The Hapi framework.
 2.  @hapi/joi             -> Payload validation.
 3.  @hapi/boom            -> Error Handling
-4.  bcrypt                -> For hashing passwords.
-5.  hapi-auth-jwt2        -> For JWT authentication.
+4.  bcrypt                -> Hashing passwords.
+5.  hapi-auth-jwt2        -> JWT authentication.
 6.  typeorm               -> ORM
 7.  nodemon               -> Auto Restart
 8.  pg                    -> Connection to Postgres
 9.  mssql                 -> Connection to MSSQL
-10. jsonwebtoken          -> Authentication and Authorization
 11. rate-limiter-flexible -> Rate Limit Middleware
 
 
