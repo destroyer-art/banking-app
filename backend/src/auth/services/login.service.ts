@@ -6,6 +6,7 @@ import { LoginInput } from "../types/login-input";
 import { JwtPayload } from "../types/jwt-payload";
 import { generateJwtTokenAsync, checkValidations } from "./auth.service";
 import { ErrorMessages } from "../../shared/constants/error-messages";
+import { QueryRunner } from "typeorm";
 
 /*
 
@@ -22,7 +23,7 @@ import { ErrorMessages } from "../../shared/constants/error-messages";
 */
 
 export const login = async (req: Request, h: ResponseToolkit) => {
-  const queryRunner = appDataSource.createQueryRunner();
+  const queryRunner: QueryRunner = appDataSource.createQueryRunner();
 
   try {
     const { email, password } = req.payload as LoginInput;
@@ -41,7 +42,7 @@ export const login = async (req: Request, h: ResponseToolkit) => {
       await queryRunner.manager.save(Customer, customer);
     }
 
-    const validationError = await checkValidations(password, customer);
+    const validationError: string = await checkValidations(password, customer);
 
     if (validationError) {
       return h.response(validationError).code(403);
@@ -56,7 +57,7 @@ export const login = async (req: Request, h: ResponseToolkit) => {
       balance: customer.balance,
     };
 
-    const JWTToken = generateJwtTokenAsync(jwtPayload);
+    const JWTToken: string = generateJwtTokenAsync(jwtPayload);
 
     return h.response(JWTToken);
   } catch (error) {

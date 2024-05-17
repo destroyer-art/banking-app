@@ -5,15 +5,18 @@ import { TransactionStatus } from "../domain/enums/transaction-status";
 import { TransactionType } from "../domain/enums/transaction-type";
 import { Transaction } from "../domain/models/transaction.model";
 import { RefundInput } from "../types/refund-input";
-import {  ErrorMessages, 
-} from "../../shared/constants/error-messages";
-import {  getTransactionByNumber,
+import { ErrorMessages } from "../../shared/constants/error-messages";
+import {
+  getTransactionByNumber,
   makePayment,
-  sendResponse} from "../services/transaction.service"
+  sendResponse,
+} from "../services/transaction.service";
+import { QueryRunner } from "typeorm";
 
 /*
 
 ********************** REFUND LOGIC ********************** 
+
 1.  Start the transaction
 2.  fetch the customer id from the Token
 3.  fetch purchasedTransaction by transactionNumber
@@ -31,7 +34,7 @@ import {  getTransactionByNumber,
 */
 
 export const refund = async (request: Request, h: ResponseToolkit) => {
-  const queryRunner = appDataSource.createQueryRunner();
+  const queryRunner: QueryRunner = appDataSource.createQueryRunner();
 
   try {
     await queryRunner.connect();
@@ -39,12 +42,12 @@ export const refund = async (request: Request, h: ResponseToolkit) => {
 
     const { transactionNumber } = request.payload as RefundInput;
 
-    const customerId = request.auth["customer"].id;
+    const customerId: string = request.auth["customer"].id;
 
-    const customer = await queryRunner.manager.findOne(Customer, {
+    const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
- 
+
     const purchasedTransaction: Transaction = await getTransactionByNumber(
       transactionNumber,
       queryRunner
@@ -61,13 +64,16 @@ export const refund = async (request: Request, h: ResponseToolkit) => {
     purchasedTransaction.status = TransactionStatus.RETURNED;
 
     // Create Pending Transaction
-    const newTransaction = await queryRunner.manager.save(Transaction, {
-      number: purchasedTransaction.number, // Purchase and refund Transactions will have SAME number
-      targetId: customer.id, // Customer ID
-      sourceId: purchasedTransaction.targetId, // Shopping Provider ID
-      amount: purchasedTransaction.amount,
-      type: TransactionType.REFUND,
-    });
+    const newTransaction: Transaction = await queryRunner.manager.save(
+      Transaction,
+      {
+        number: purchasedTransaction.number, // Purchase and refund Transactions will have SAME number
+        targetId: customer.id, // Customer ID
+        sourceId: purchasedTransaction.targetId, // Shopping Provider ID
+        amount: purchasedTransaction.amount,
+        type: TransactionType.REFUND,
+      }
+    );
 
     // Make Payment
     const payment = await makePayment();

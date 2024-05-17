@@ -5,6 +5,7 @@ import { appDataSource } from "../../db/database";
 import { ErrorMessages } from "../../shared/constants/error-messages";
 import { Customer } from "../../customer/domain/models/customer.model";
 import { RegisterInput } from "../types/register-input";
+import { QueryRunner } from "typeorm";
 
 /*
 
@@ -18,7 +19,7 @@ import { RegisterInput } from "../types/register-input";
 */
 
 export const register = async (req: Request, h: ResponseToolkit) => {
-  const queryRunner = appDataSource.createQueryRunner();
+  const queryRunner: QueryRunner = appDataSource.createQueryRunner();
 
   try {
     const { firstName, lastName, dateOfBirth, gsmNumber, email, password } =
@@ -43,7 +44,7 @@ export const register = async (req: Request, h: ResponseToolkit) => {
       return h.response(ErrorMessages.EMAIL_ALREADY_EXIST).code(404);
     }
 
-    const passwordHash = await hash(password, await genSalt(10));
+    const passwordHash: string = await hash(password, await genSalt(10));
 
     const customerInput: Partial<Customer> = {
       email,
@@ -54,7 +55,10 @@ export const register = async (req: Request, h: ResponseToolkit) => {
       password: passwordHash,
     };
 
-    const newCustomer = await queryRunner.manager.save(Customer, customerInput);
+    const newCustomer: Customer = await queryRunner.manager.save(
+      Customer,
+      customerInput
+    );
 
     return h.response(
       `Customer Successfully created with ID: ${newCustomer.id}`

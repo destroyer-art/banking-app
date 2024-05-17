@@ -4,7 +4,7 @@ import { ErrorMessages } from "../../shared/constants/error-messages";
 import { JwtPayload } from "../types/jwt-payload";
 import JWT from "jsonwebtoken";
 
-export const JWT_SECRET = "HBOIU0i09mIU2@n[09";
+export const JWT_SECRET: string = "HBOIU0i09mIU2@n[09";
 
 export const generateJwtTokenAsync = (payload: JwtPayload): string => {
   return JWT.sign(payload, JWT_SECRET, { expiresIn: "1h" });

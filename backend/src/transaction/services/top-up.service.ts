@@ -6,10 +6,12 @@ import { TransactionType } from "../domain/enums/transaction-type";
 import { Transaction } from "../domain/models/transaction.model";
 import { TopUpInput } from "../types/top-up-input";
 import { makePayment, sendResponse } from "./transaction.service";
+import { QueryRunner } from "typeorm";
 
 /*
 
 ********************** TOP UP LOGIC ********************** 
+
 1. Start the transaction
 2. fetch the customer id from the Token
 3. create a new transaction with the type TOP_UP with PENDING Status
@@ -23,28 +25,30 @@ import { makePayment, sendResponse } from "./transaction.service";
 */
 
 export const topUp = async (request: Request, h: ResponseToolkit) => {
-  const queryRunner = appDataSource.createQueryRunner();
+  const queryRunner: QueryRunner = appDataSource.createQueryRunner();
 
   try {
-
     await queryRunner.connect();
     await queryRunner.startTransaction();
 
     const { amount, paymentProvider } = request.payload as TopUpInput;
 
-    const customerId = request.auth["customer"].id;
+    const customerId: string = request.auth["customer"].id;
 
-    const customer = await queryRunner.manager.findOne(Customer, {
+    const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
 
     // Create Pending Transaction
-    const currentRansaction = await queryRunner.manager.save(Transaction, {
-      targetId: customer.id, // Customer ID
-      sourceId: paymentProvider, // Payment Provider ID
-      type: TransactionType.TOP_UP,
-      amount,
-    });
+    const currentRansaction: Transaction = await queryRunner.manager.save(
+      Transaction,
+      {
+        targetId: customer.id, // Customer ID
+        sourceId: paymentProvider, // Payment Provider ID
+        type: TransactionType.TOP_UP,
+        amount,
+      }
+    );
 
     // Make Payment
     const payment = await makePayment();
@@ -72,7 +76,7 @@ export const topUp = async (request: Request, h: ResponseToolkit) => {
     await queryRunner.rollbackTransaction();
     console.error("Error processing Top-up:", error);
     return h.response("Error processing Top-up").code(500);
-  }finally {
+  } finally {
     await queryRunner.release();
   }
 };

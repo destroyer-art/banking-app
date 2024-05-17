@@ -7,10 +7,12 @@ import { Transaction } from "../domain/models/transaction.model";
 import { ErrorMessages } from "../../shared/constants/error-messages";
 import { makePayment, sendResponse } from "./transaction.service";
 import { PurchaseInput } from "../types/purchase-input";
+import { QueryRunner } from "typeorm";
 
 /*
 
 ********************** PURCHASE LOGIC ********************** 
+
 1. Start the transaction
 2. fetch the customer id from the Token
 3. check if the customer has enough balance and if not return INSUFFICENT_BALANCE error
@@ -25,7 +27,7 @@ import { PurchaseInput } from "../types/purchase-input";
 */
 
 export const purchase = async (request: Request, h: ResponseToolkit) => {
-  const queryRunner = appDataSource.createQueryRunner();
+  const queryRunner: QueryRunner = appDataSource.createQueryRunner();
 
   try {
     await queryRunner.connect();
@@ -33,24 +35,26 @@ export const purchase = async (request: Request, h: ResponseToolkit) => {
 
     const { amount, shoppingProvider } = request.payload as PurchaseInput;
 
-    const customerId = request.auth["customer"].id;
+    const customerId: string = request.auth["customer"].id;
 
-    const customer = await queryRunner.manager.findOne(Customer, {
+    const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
- 
 
     if (customer.balance < amount) {
       return h.response(ErrorMessages.INSUFFICENT_BALANCE).code(400);
     }
 
     // Create Pending Transaction
-    const newTransaction = await queryRunner.manager.save(Transaction, {
-      targetId: shoppingProvider, // Shopping Provider ID
-      sourceId: customer.id, // Customer ID
-      type: TransactionType.PURCHASE,
-      amount,
-    });
+    const newTransaction: Transaction = await queryRunner.manager.save(
+      Transaction,
+      {
+        targetId: shoppingProvider, // Shopping Provider ID
+        sourceId: customer.id, // Customer ID
+        type: TransactionType.PURCHASE,
+        amount,
+      }
+    );
 
     // Make Payment
     const payment = await makePayment();
@@ -61,7 +65,7 @@ export const purchase = async (request: Request, h: ResponseToolkit) => {
       : TransactionStatus.FAILED;
 
     // Update Transaction
-    const transaction = await queryRunner.manager.save(
+    const transaction: Transaction = await queryRunner.manager.save(
       Transaction,
       newTransaction
     );

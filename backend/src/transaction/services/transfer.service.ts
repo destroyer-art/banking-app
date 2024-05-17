@@ -10,6 +10,7 @@ import { makePayment, sendResponse } from "./transaction.service";
 /*
 
 ********************** TRANSFER LOGIC ********************** 
+
 1.  Start the transaction
 2.  fetch the customer id from the Token
 3.  fetch the target customer by GSM Number
@@ -28,7 +29,7 @@ import { makePayment, sendResponse } from "./transaction.service";
 */
 
 export const transfer = async (request, h) => {
-  const queryRunner = appDataSource.createQueryRunner();
+  const queryRunner: QueryRunner = appDataSource.createQueryRunner();
 
   try {
     await queryRunner.connect();
@@ -36,7 +37,7 @@ export const transfer = async (request, h) => {
 
     const { amount, targetGSMNumber } = request.payload as TransferInput;
 
-    const customerId = request.auth["customer"].id;
+    const customerId: string = request.auth["customer"].id;
 
     const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
@@ -60,7 +61,7 @@ export const transfer = async (request, h) => {
     }
 
     // Create Pending Transaction
-    const newTransaction = await queryRunner.manager.save(Transaction, {
+    const newTransaction:Transaction = await queryRunner.manager.save(Transaction, {
       targetId: targetCustomer.id, // Target Customer ID
       sourceId: customer.id, // Current Customer ID
       amount,
