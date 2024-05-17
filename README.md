@@ -160,8 +160,10 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 
 3. Input Validations
 
-4. PHONE: Pattern( /^\+994\d{9}$/) , ErrorMessage(GSM Number must start with +994 and contain 9 digits after the country code)
+4. PHONE: Pattern( /^\+994\d{9}$/), 
+ErrorMessage(GSM Number must start with +994 and contain 9 digits after the country code)
 
-5. PHONE: Pattern( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;) , ErrorMessage("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character, and be at least 8 characters long")
+5. PASSWORD: Pattern( /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;), 
+ErrorMessage("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character, and be at least 8 characters long")
 
  
