@@ -1,8 +1,9 @@
 # banking-app
-This is a Full Stack JS App (,Node.js, Hapi.js, React.js, TypeScript)
+This is a Full Stack JS App (Node.js, Hapi.js, React.js, TypeScript)
 
-
+ 
 ## How to run Database Locally with Docker? 
+
 
 #### They are 2 options: 
 
@@ -10,6 +11,7 @@ This is a Full Stack JS App (,Node.js, Hapi.js, React.js, TypeScript)
 2. MS SQL Server
 
 There are detailed informations about each service:   
+
 Check README.MD file inside the specific(database/mssql-server, database/postgres-pgadmin) folders
 
 
@@ -145,3 +147,4 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 3. check if the customer is not found, return CUSTOMER_NOT_FOUND message
 4. return the customer details excluding the password, emailVerified, createdAt
 
+ 
