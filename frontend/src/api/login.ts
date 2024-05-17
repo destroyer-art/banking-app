@@ -1,13 +1,13 @@
+ import { setToken } from "../auth/auth";
 import { AlertStatus, LoginInput } from "../types/types";
-import { getAxiosInstance, setToken } from "./axios-instance";
-// import { useHistory } from "react-router-dom";
+import { getAxiosInstance } from "./axios-instance";
 
 export const login = async (payload: LoginInput, setNotification: any) => {
   try {
     const { data: token } = await getAxiosInstance().post("login", payload);
 
     setToken(token);
-    // useHistory.push("/");
+
     setNotification({
       message: "Succesfully Logged In...",
       status: AlertStatus.SUCCESS,

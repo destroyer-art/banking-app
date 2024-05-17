@@ -7,16 +7,12 @@ import {
 } from "../../types/types";
 import { purchaseSchema } from "../../schemas/purchase.schema";
 import { Notification } from "../notification/notification";
-import { getCustomerId } from "../../api/register-customer";
-import { purchase } from "../../api/purchase";
+ import { purchase } from "../../api/purchase";
 
 const Purchase: React.FC = () => {
-  const customerId = getCustomerId();
-
-  if (!customerId) return <div>You should register first</div>;
-
+ 
+ 
   const initialValues: PurchaseInput = {
-    customerId: customerId,
     amount: 0,
     shoppingProvider: ShoppingProvider.ADIDAS,
   };

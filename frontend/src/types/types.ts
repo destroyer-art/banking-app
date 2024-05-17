@@ -32,24 +32,29 @@ export interface LoginInput {
 }
 
 export interface TopUPInput {
-  customerId: string;
   amount: number;
   paymentProvider: PaymentProvider;
 }
 
 export interface PurchaseInput {
-  customerId: string;
   amount: number;
   shoppingProvider: ShoppingProvider;
 }
 
 export interface RefundInput {
-  customerId: string;
   transactionNumber: string;
 }
 
 export interface TransferInput {
-  customerId: string;
   targetGSMNumber: string;
   amount: number;
+}
+
+export interface JwtPayload {
+  id: string;
+  firstName: string;
+  lastName: string;
+  gsmNumber: string;
+  email: string;
+  balance: number;
 }

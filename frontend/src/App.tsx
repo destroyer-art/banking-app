@@ -1,24 +1,18 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
+import { getCurrentCustomer } from "./auth/auth";
+import Login from "./components/login/Login";
 import Purchase from "./components/purchase/Purchase";
 import Refund from "./components/refund/Refund";
 import Register from "./components/register/Register";
 import TopUp from "./components/top-up/TopUp";
 import Transfer from "./components/transfer/Transfer";
-import { getCustomerData, getCustomerId } from "./api/register-customer";
-import Login from "./components/login/Login";
+import { JwtPayload } from "./types/types";
 
 function App() {
-  const customerId = getCustomerId();
-  let customer: any = getCustomerData();
+  let jwtPayload: JwtPayload | null = getCurrentCustomer();
 
-  useEffect(() => {
-    console.log({ customerId, customer });
-
-    if (customerId) {
-      customer = getCustomerData();
-    }
-  }, [customerId]);
+  console.log({ jwtPayload });
 
   const [selectedMenuItem, setSelectedMenuItem] = useState("");
 
@@ -50,20 +44,20 @@ function App() {
       <div className="flex h-4/5 w-9/12 bg-slate-800">
         <div className="bg-blue-200" style={{ width: "25%" }}>
           <Sidebar className="h-full" style={{ width: "100%" }}>
-            {customer && (
+            {jwtPayload && (
               <b>
                 <div className="flex-row flex p-2 m-4">
                   <span>
-                    Hey, {`${customer?.firstName} ${customer?.lastName}`}
+                    Hey, {`${jwtPayload?.firstName} ${jwtPayload?.lastName}`}
                   </span>
                 </div>
 
                 <div className="flex-row flex p-2 m-4">
-                  <span>{`Balance: ${customer?.balance} AZN`}</span>
+                  <span>{`Balance: ${jwtPayload?.balance} AZN`}</span>
                 </div>
 
                 <div className="flex-row flex p-2 m-4">
-                  <span>{`GSM Number: ${customer?.gsmNumber}`}</span>
+                  <span>{`GSM Number: ${jwtPayload?.gsmNumber}`}</span>
                 </div>
               </b>
             )}

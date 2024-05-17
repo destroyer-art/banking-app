@@ -1,23 +1,17 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { getCustomerId } from "../../api/register-customer";
 import { transfer } from "../../api/transfer";
 import { AlertStatus, TransferInput } from "../../types/types";
 import { transferSchema } from "../../schemas/transfer.schema";
 import { Notification } from "../notification/notification";
 
 const Transfer: React.FC = () => {
-  const customerId = getCustomerId();
-
-  if (!customerId) return <div>You should register first</div>;
-
   const [notification, setNotification] = useState({
     status: AlertStatus.SUCCESS,
     message: "",
   });
 
   const initialValues: TransferInput = {
-    customerId: customerId,
     amount: 0,
     targetGSMNumber: "",
   };

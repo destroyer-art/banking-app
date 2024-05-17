@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { getToken } from "../auth/auth";
+
 export const getAxiosInstance = () => {
   const axiosConfig: any = {
     baseURL: "http://localhost:3000/api/",
@@ -18,12 +20,4 @@ export const getAxiosInstance = () => {
   }
 
   return axios.create(axiosConfig);
-};
-
-export const getToken = () => {
-  return localStorage.getItem("auth_token");
-};
-
-export const setToken = (token: string) => {
-  return localStorage.setItem("auth_token", token);
 };
