@@ -18,10 +18,17 @@ export enum ShoppingProvider {
 }
 
 export interface RegisterInput {
+  email: string;
+  password: string;
   firstName: string;
   lastName: string;
   gsmNumber: string;
   dateOfBirth: Date;
+}
+
+export interface LoginInput {
+  email: string;
+  password: string;
 }
 
 export interface TopUPInput {

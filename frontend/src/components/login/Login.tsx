@@ -1,59 +1,53 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { getCustomerId } from "../../api/register-customer";
-import { transfer } from "../../api/transfer";
-import { AlertStatus, TransferInput } from "../../types/types";
-import { transferSchema } from "../../schemas/transfer.schema";
+import { login } from "../../api/login";
+import { loginSchema } from "../../schemas/login.schema";
+import { AlertStatus, LoginInput } from "../../types/types";
 import { Notification } from "../notification/notification";
 
-const Transfer: React.FC = () => {
-  const customerId = getCustomerId();
-
-  if (!customerId) return <div>You should register first</div>;
-
+const Login: React.FC = () => {
   const [notification, setNotification] = useState({
     status: AlertStatus.SUCCESS,
     message: "",
   });
 
-  const initialValues: TransferInput = {
-    customerId: customerId,
-    amount: 0,
-    targetGSMNumber: "",
+  const initialValues: LoginInput = {
+    email: "pashazade.nazar@gmail.com",
+    password: "Nezer123!",
   };
 
-  const handleSubmit = async (values: TransferInput, actions: any) => {
+  const handleSubmit = async (values: LoginInput, actions: any) => {
     console.log(values);
-    await transfer(values, setNotification);
+    await login(values, setNotification);
     actions.setSubmitting(false);
   };
 
   return (
     <div className="justify-center items-center bg-red-600 h-4/5 w-9/12">
       <div className="bg-white px-8 py-2 rounded shadow-md h-full w-full">
-        <h2 className="text-2xl text-center">Transfer</h2>
+        <h2 className="text-2xl text-center">Login</h2>
         <Formik
           initialValues={initialValues}
-          validationSchema={transferSchema}
+          validationSchema={loginSchema}
           onSubmit={handleSubmit}
         >
           {() => (
             <Form>
               <div className="my-6">
                 <label
-                  htmlFor="amount"
+                  htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Amount
+                  Email
                 </label>
                 <Field
-                  name="amount"
-                  type="number"
-                  id="amount"
+                  type="text"
+                  id="email"
+                  name="email"
                   className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                 />
                 <ErrorMessage
-                  name="amount"
+                  name="email"
                   component="div"
                   className="text-red-500"
                 />
@@ -61,28 +55,29 @@ const Transfer: React.FC = () => {
 
               <div className="my-6">
                 <label
-                  htmlFor="targetGSMNumber"
+                  htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Gsm Number (phone number)
+                  Password
                 </label>
                 <Field
-                  name="targetGSMNumber"
-                  type="text"
-                  id="targetGSMNumber"
+                  type="password"
+                  id="password"
+                  name="password"
                   className="mt-1 p-2 border border-gray-300 rounded-md w-full"
                 />
                 <ErrorMessage
-                  name="targetGSMNumber"
+                  name="password"
                   component="div"
                   className="text-red-500"
                 />
               </div>
+
               <button
                 type="submit"
                 className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600"
               >
-                Transfer
+                Login
               </button>
 
               {notification.message && (
@@ -101,4 +96,4 @@ const Transfer: React.FC = () => {
   );
 };
 
-export default Transfer;
+export default Login;

@@ -6,6 +6,7 @@ import Register from "./components/register/Register";
 import TopUp from "./components/top-up/TopUp";
 import Transfer from "./components/transfer/Transfer";
 import { getCustomerData, getCustomerId } from "./api/register-customer";
+import Login from "./components/login/Login";
 
 function App() {
   const customerId = getCustomerId();
@@ -29,6 +30,8 @@ function App() {
     switch (selectedMenuItem) {
       case "Register":
         return <Register />;
+      case "Login":
+        return <Login />;
       case "Top up Balance":
         return <TopUp />;
       case "Purchase":
@@ -45,7 +48,7 @@ function App() {
   return (
     <div className="flex items-center justify-center bg-slate-400 pt-6 h-screen">
       <div className="flex h-4/5 w-9/12 bg-slate-800">
-        <div className="bg-blue-200"style={{ width: "25%" }}>
+        <div className="bg-blue-200" style={{ width: "25%" }}>
           <Sidebar className="h-full" style={{ width: "100%" }}>
             {customer && (
               <b>
@@ -65,6 +68,13 @@ function App() {
               </b>
             )}
             <Menu className="m-4">
+              <MenuItem
+                className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
+                onClick={() => handleMenuItemClick("Login")}
+              >
+                Login
+              </MenuItem>
+
               <MenuItem
                 className="mb-4 py-2 text-xl font-bold border-2 border-gray-300"
                 onClick={() => handleMenuItemClick("Register")}

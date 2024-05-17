@@ -1,5 +1,5 @@
 import { AlertStatus, PurchaseInput } from "../types/types";
-import { axiosInstance } from "./axios-instance";
+import { getAxiosInstance } from "./axios-instance";
 import { fetchCustomer } from "./fetch-customer";
 
 export const purchase = async (
@@ -7,7 +7,7 @@ export const purchase = async (
   setNotification: any
 ) => {
   try {
-    const { data } = await axiosInstance.post("purchase", payload);
+    const { data } = await getAxiosInstance().post("purchase", payload);
 
     await fetchCustomer(payload.customerId);
 

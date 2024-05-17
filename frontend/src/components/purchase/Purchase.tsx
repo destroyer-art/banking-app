@@ -5,7 +5,7 @@ import {
   PurchaseInput,
   ShoppingProvider,
 } from "../../types/types";
-import { purchaseSchema } from "../../validations/purchase.validation";
+import { purchaseSchema } from "../../schemas/purchase.schema";
 import { Notification } from "../notification/notification";
 import { getCustomerId } from "../../api/register-customer";
 import { purchase } from "../../api/purchase";

@@ -3,6 +3,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  Index,
   PrimaryGeneratedColumn,
 } from "typeorm";
 
@@ -11,13 +12,20 @@ export class Customer implements IAuditableEntity {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 
-  @Column({ name: "first_name", default: "firstName" })
+  @Index({ unique: true })
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @Column({ name: "first_name" })
   firstName: string;
 
-  @Column({ name: "last_name", default: "lastName" })
+  @Column({ name: "last_name" })
   lastName: string;
 
-  @Column({ name: "gsm_number", default: "gsmNumber" })
+  @Column({ unique: true, name: "gsm_number" })
   gsmNumber: string;
 
   @Column({ default: 100 })
@@ -28,4 +36,11 @@ export class Customer implements IAuditableEntity {
 
   @CreateDateColumn({ name: "created_at", type: "timestamp with time zone" })
   createdAt: Date;
+
+  @Column({ name: "email_verified", default: false })
+  emailVerified: boolean;
+
+  verifyEmail(): void {
+    this.emailVerified = true;
+  }
 }

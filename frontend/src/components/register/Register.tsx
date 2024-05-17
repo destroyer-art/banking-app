@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { registerCustomer } from "../../api/register-customer";
 import { AlertStatus, RegisterInput } from "../../types/types";
-import { registerSchema } from "../../validations/register.validation";
+import { registerSchema } from "../../schemas/register.schema";
 import { Notification } from "../notification/notification";
 
 const Register: React.FC = () => {
@@ -12,6 +12,8 @@ const Register: React.FC = () => {
   });
 
   const initialValues: RegisterInput = {
+    email: "",
+    password: "",
     firstName: "",
     lastName: "",
     gsmNumber: "",
@@ -54,6 +56,7 @@ const Register: React.FC = () => {
                   className="text-red-500"
                 />
               </div>
+
               <div className="my-6">
                 <label
                   htmlFor="last"
@@ -73,6 +76,47 @@ const Register: React.FC = () => {
                   className="text-red-500"
                 />
               </div>
+              
+              <div className="my-6">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Email
+                </label>
+                <Field
+                  type="text"
+                  id="email"
+                  name="email"
+                  className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                />
+                <ErrorMessage
+                  name="email"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+
+              <div className="my-6">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Password
+                </label>
+                <Field
+                  type="password"
+                  id="password"
+                  name="password"
+                  className="mt-1 p-2 border border-gray-300 rounded-md w-full"
+                />
+                <ErrorMessage
+                  name="password"
+                  component="div"
+                  className="text-red-500"
+                />
+              </div>
+
               <div className="my-6">
                 <label
                   htmlFor="dateOfBirth"
@@ -92,6 +136,7 @@ const Register: React.FC = () => {
                   className="text-red-500"
                 />
               </div>
+
               <div className="my-6">
                 <label
                   htmlFor="gsmNumber"

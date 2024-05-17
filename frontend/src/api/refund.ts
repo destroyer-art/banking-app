@@ -1,5 +1,5 @@
 import { AlertStatus, RefundInput } from "../types/types";
-import { axiosInstance } from "./axios-instance";
+import { getAxiosInstance } from "./axios-instance";
 import { fetchCustomer } from "./fetch-customer";
 
 export const refund = async (
@@ -7,7 +7,7 @@ export const refund = async (
   setNotification: any
 ) => {
   try {
-    const { data } = await axiosInstance.post("refund", payload);
+    const { data } = await getAxiosInstance().post("refund", payload);
 
     await fetchCustomer(payload.customerId);
 

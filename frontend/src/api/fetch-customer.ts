@@ -1,9 +1,9 @@
-import { axiosInstance } from "./axios-instance";
 import Cookies from "js-cookie";
+import { getAxiosInstance } from "./axios-instance";
 
 export const fetchCustomer = async (customerId: string) => {
   try {
-    const { data } = await axiosInstance.get(`customers/${customerId}`);
+    const { data } = await getAxiosInstance().get(`customers/${customerId}`);
 
     setCustomerData(data);
   } catch (error: any) {

@@ -2,7 +2,7 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
 import { AlertStatus, RefundInput } from "../../types/types";
 import { refund } from "../../api/refund";
-import { refundSchema } from "../../validations/refund.validation";
+import { refundSchema } from "../../schemas/refund.schema";
 import { Notification } from "../notification/notification";
 import { getCustomerId } from "../../api/register-customer";
 

@@ -1,7 +1,8 @@
 import { ServerRoute } from "@hapi/hapi";
-import { createCustomerSchema } from "../schemas/create.customer.schema";
+import { createCustomerSchema } from "../schemas/register.customer.schema";
 import { getCustomer } from "../services/get-customer.service";
 import { registerCustomer } from "../services/register-customer.service";
+import { extractTokenMiddleware } from "../../middlewares/extract-token";
 
 export const customerRoutes: ServerRoute[] = [
   {
@@ -17,7 +18,10 @@ export const customerRoutes: ServerRoute[] = [
 
   {
     method: "GET",
-    path: "/api/customers/{customerId}",
+    path: "/api/customers",
     handler: getCustomer,
+    options: {
+      pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
+    },
   },
 ];

@@ -4,7 +4,7 @@ import { AlertStatus, PaymentProvider, TopUPInput } from "../../types/types";
 import { useState } from "react";
 import { topUpBalance } from "../../api/top-up-balance";
 import { Notification } from "../notification/notification";
-import { topUpSchema } from "../../validations/top-up.validation";
+import { topUpSchema } from "../../schemas/top-up.schema";
 
 const TopUp: React.FC = () => {
   const customerId = getCustomerId();

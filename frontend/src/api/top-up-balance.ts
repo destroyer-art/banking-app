@@ -1,5 +1,5 @@
 import { AlertStatus, TopUPInput } from "../types/types";
-import { axiosInstance } from "./axios-instance";
+import { getAxiosInstance } from "./axios-instance";
 import { fetchCustomer } from "./fetch-customer";
 
 // Example usage in a React component
@@ -8,7 +8,7 @@ export const topUpBalance = async (
   setNotification: any
 ) => {
   try {
-    const { data } = await axiosInstance.post("top-up", payload);
+    const { data } = await getAxiosInstance().post("top-up", payload);
 
     await fetchCustomer(payload.customerId);
 

@@ -1,5 +1,6 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
 import { RateLimiterMemory } from "rate-limiter-flexible";
+import { ErrorMessages } from "../transaction/services/helper";
 
 const rateLimiter = new RateLimiterMemory({
   points: 5, // max number of the requests
@@ -14,6 +15,6 @@ export const rateLimiterMiddleware = async (
     await rateLimiter.consume(request.info.remoteAddress);
     return h.continue;
   } catch (rejRes) {
-    return h.response("Too Many Requests").code(429).takeover();
+    return h.response(ErrorMessages.TOO_MANY_REQUESTS).code(429).takeover();
   }
 };

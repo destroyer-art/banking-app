@@ -1,6 +1,6 @@
-import { AlertStatus, RegisterInput } from "../types/types";
-import { axiosInstance } from "./axios-instance";
 import Cookies from "js-cookie";
+import { AlertStatus, RegisterInput } from "../types/types";
+import { getAxiosInstance } from "./axios-instance";
 import { fetchCustomer } from "./fetch-customer";
 
 export const registerCustomer = async (
@@ -8,7 +8,7 @@ export const registerCustomer = async (
   setNotification: any
 ) => {
   try {
-    const { data } = await axiosInstance.post("customers", payload);
+    const { data } = await getAxiosInstance().post("customers", payload);
 
     const customerId = data.split("ID: ")[1];
 
