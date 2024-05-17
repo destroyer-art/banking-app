@@ -10,8 +10,13 @@ export const registerCustomer = async (
 
     setNotification({ message: data, status: AlertStatus.SUCCESS });
   } catch (error: any) {
-    const errorMessage = error.response.data || "Failed to register";
-    console.log({ error });
+    let errorMessage = "";
+
+    if (error.response.data?.message) {
+      errorMessage = error.response.data.message;
+    } else {
+      errorMessage = error.response.data || "Failed to register";
+    }
     setNotification({ message: errorMessage, status: AlertStatus.ERROR });
   }
 };

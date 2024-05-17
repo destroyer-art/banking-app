@@ -7,6 +7,7 @@ import { corsConig } from "./middlewares/cors-config";
 import { rateLimiterMiddleware } from "./middlewares/rate-limiter";
 import { welcomeRoutes } from "./routes/welcome.router";
 import { transactionRoutes } from "./transaction/routes/transaction.router";
+import { setSecurityHeadersMiddleware } from "./middlewares/set-securtiy-headers";
 const JWT = require("hapi-auth-jwt2");
 
 export const server: Server = HAPI.server({
@@ -19,6 +20,7 @@ export const server: Server = HAPI.server({
 
 const registerMiddlewares = (server: Server<ServerApplicationState>) => {
   server.ext("onRequest", rateLimiterMiddleware);
+  server.ext("onRequest", setSecurityHeadersMiddleware);
  };
 
 const init = async () => {

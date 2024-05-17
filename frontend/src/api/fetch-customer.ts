@@ -6,8 +6,13 @@ export const fetchCustomer = async () => {
     const { data } = await getAxiosInstance().get(`customers`);
     setCustomerData(data);
   } catch (error: any) {
-    const errorMessage = error.response.data || "Failed to fetch Customer";
-    console.log({ error });
+    let errorMessage = "";
+
+    if (error.response.data?.message) {
+      errorMessage = error.response.data.message;
+    } else {
+      errorMessage = error.response.data || "Failed to fetchCustomer";
+    }
     throw new Error(errorMessage);
   }
 };

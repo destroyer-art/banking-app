@@ -1,7 +1,7 @@
 import { AlertStatus, RefundInput } from "../types/types";
 import { getAxiosInstance } from "./axios-instance";
 import { fetchCustomer } from "./fetch-customer";
- 
+
 export const refund = async (payload: RefundInput, setNotification: any) => {
   try {
     const { data } = await getAxiosInstance().post("refund", payload);
@@ -13,8 +13,13 @@ export const refund = async (payload: RefundInput, setNotification: any) => {
       status: AlertStatus.SUCCESS,
     });
   } catch (error: any) {
-    const errorMessage = error.response.data || "Failed to refund";
-    console.log({ error });
+    let errorMessage = "";
+
+    if (error.response.data?.message) {
+      errorMessage = error.response.data.message;
+    } else {
+      errorMessage = error.response.data || "Failed to refund";
+    }
     setNotification({ message: errorMessage, status: AlertStatus.ERROR });
   }
 };

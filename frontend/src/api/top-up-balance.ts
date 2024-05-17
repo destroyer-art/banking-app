@@ -10,15 +10,20 @@ export const topUpBalance = async (
   try {
     const { data } = await getAxiosInstance().post("top-up", payload);
 
-    await fetchCustomer()
+    await fetchCustomer();
 
     setNotification({
       message: JSON.stringify(data),
       status: AlertStatus.SUCCESS,
     });
   } catch (error: any) {
-    const errorMessage = error.response.data || "Failed to top up balance";
-    console.log({ error });
+    let errorMessage = "";
+
+    if (error.response.data?.message) {
+      errorMessage = error.response.data.message;
+    } else {
+      errorMessage = error.response.data || "Failed to top up balance";
+    }
     setNotification({ message: errorMessage, status: AlertStatus.ERROR });
   }
 };

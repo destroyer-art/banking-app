@@ -13,7 +13,7 @@ const Login: React.FC = () => {
 
   const initialValues: LoginInput = {
     email: "pashazade.nazar@gmail.com",
-    password: "Nezer123!",
+    password: "",
   };
 
   const handleSubmit = async (values: LoginInput, actions: any) => {

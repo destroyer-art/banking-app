@@ -11,10 +11,18 @@ export const purchase = async (
 
     await fetchCustomer();
 
-    setNotification({ message: JSON.stringify(data), status: AlertStatus.SUCCESS });
+    setNotification({
+      message: JSON.stringify(data),
+      status: AlertStatus.SUCCESS,
+    });
   } catch (error: any) {
-    const errorMessage = error.response.data || "Failed to puchase";
-    console.log({ error });
+    let errorMessage = "";
+
+    if (error.response.data?.message) {
+      errorMessage = error.response.data.message;
+    } else {
+      errorMessage = error.response.data || "Failed to puchase";
+    }
     setNotification({ message: errorMessage, status: AlertStatus.ERROR });
   }
 };
