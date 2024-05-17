@@ -23,7 +23,7 @@ export const registerSchema = Yup.object({
     .test("DOB", "You must be at least 18 years old", (value) => {
       return new Date().getFullYear() - new Date(value).getFullYear() >= 18;
     }),
-  gsmNumber: Yup.string()
-    .required("GSM(Phone) Number is required")
-    .matches(phoneRegex, phoneError),
+  // gsmNumber: Yup.string()
+  //   .required("GSM(Phone) Number is required")
+  //   .matches(phoneRegex, phoneError),
 });
