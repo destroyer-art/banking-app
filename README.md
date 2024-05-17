@@ -2,10 +2,14 @@
 This is a Full Stack JS App (,Node.js, Hapi.js, React.js, TypeScript)
 
 
-## How to run DataBase Locally with Docker?
+## How to run Database Locally with Docker? 
+
+#### They are 2 options: 
+
+1. Postgres
+2. MS SQL Server
 
 There are detailed informations about each service:   
-
 Check README.MD file inside the specific(database/mssql-server, database/postgres-pgadmin) folders
 
 
