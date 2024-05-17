@@ -4,25 +4,36 @@ import { TransactionStatus } from "../domain/enums/transaction-status";
 import { TransactionType } from "../domain/enums/transaction-type";
 import { Transaction } from "../domain/models/transaction.model";
 import { TransferInput } from "../types/transfer-input";
-import { ErrorMessages, makePayment, sendResponse } from "./helper";
+import { ErrorMessages } from "../../shared/constants/error-messages";
+import { makePayment, sendResponse } from "./transaction.service";
 
 /*
-*********** TRANSFER LOGIC *********** 
-1) Find Current Customer (User who triggered the TRANSFER) based on Customer ID
-1) Find Target Customer based on GSM Number(as AccountID)
-3) Create a new Transaction with PENDING status
-4) Make Payment (Integration with Payment Gateway)
-5) Check if Current Customer has sufficient balance to make the transfer
-6) Update Currect Customer balance ( - amount)
-7) Update Target Customer balance ( + amount)
-8) Update Transaction Status based on Payment Status
-9) Send Transaction Information to the end user about current operation
+
+********************** TRANSFER LOGIC ********************** 
+1.  Start the transaction
+2.  fetch the customer id from the Token
+3.  fetch the target customer by GSM Number
+4.  check if the customer has enough balance and if not return INSUFFICENT_BALANCE error
+5.  check if the target customer exists and if not return GSM_NUmber_NOT_FOUND error
+6.  check if the target customer is the same as the current customer and if yes return CAN_NOT_SEND_TO_YOURSELF error
+7.  create a new transaction with the type TRANSFER with PENDING Status
+8.  make a payment (Integration with Payment Provider)
+9.  update the transaction status based on the payment status
+10. update the customer balance (- Amount)
+11. update the target customer balance (+ Amount)
+12. commit the transaction
+13. send the Response to the end user
+14. handle the errors and rollback the transaction if any error occurs
+
 */
 
 export const transfer = async (request, h) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     const { amount, targetGSMNumber } = request.payload as TransferInput;
 
     const customerId = request.auth["customer"].id;
@@ -30,10 +41,6 @@ export const transfer = async (request, h) => {
     const customer: Customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
-
-    if (!customer) {
-      return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);
-    }
 
     if (customer.balance < amount) {
       return h.response(ErrorMessages.INSUFFICENT_BALANCE).code(400);
@@ -82,10 +89,15 @@ export const transfer = async (request, h) => {
     targetCustomer.balance = targetCustomer.balance + amount;
     await queryRunner.manager.save(Customer, targetCustomer);
 
+    await queryRunner.commitTransaction();
+
     // Send Response to the end User about Opearion
     return sendResponse(transaction, h);
   } catch (error) {
+    await queryRunner.rollbackTransaction();
     console.error("Error processing Transfer:", error);
     return h.response("Error processing Transfer").code(500);
+  } finally {
+    await queryRunner.release();
   }
 };

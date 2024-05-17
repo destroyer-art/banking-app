@@ -8,7 +8,6 @@ import {
   MSSQL_USER,
 } from "../config/environment";
 
-
 export const mssqlConfig: ConnectionOptions = {
   type: "mssql",
   name: "default",

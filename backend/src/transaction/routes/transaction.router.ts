@@ -8,11 +8,14 @@ import { purchase } from "../services/purchase.service";
 import { refund } from "../services/refund.service";
 import { topUp } from "../services/top-up.service";
 import { transfer } from "../services/transfer.service";
+import { Routes } from "../../shared/routes/routes";
+
+const prefix = "/api/";
 
 export const transactionRoutes: ServerRoute[] = [
   {
     method: "POST",
-    path: "/api/top-up",
+    path: `${prefix}${Routes.TOP_UP}`,
     handler: topUp,
     options: {
       pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
@@ -23,7 +26,7 @@ export const transactionRoutes: ServerRoute[] = [
   },
   {
     method: "POST",
-    path: "/api/purchase",
+    path: `${prefix}${Routes.PURCHASE}`,
     handler: purchase,
     options: {
       pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
@@ -34,7 +37,7 @@ export const transactionRoutes: ServerRoute[] = [
   },
   {
     method: "POST",
-    path: "/api/refund",
+    path: `${prefix}${Routes.REFUND}`,
     handler: refund,
     options: {
       pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],
@@ -45,7 +48,7 @@ export const transactionRoutes: ServerRoute[] = [
   },
   {
     method: "POST",
-    path: "/api/transfer",
+    path: `${prefix}${Routes.TRANSFER}`,
     handler: transfer,
     options: {
       pre: [{ method: extractTokenMiddleware, assign: "extractToken" }],

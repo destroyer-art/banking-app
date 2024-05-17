@@ -1,4 +1,4 @@
 
 export class RefundInput {
-  readonly transactionNumber: string;
+   transactionNumber: string;
 }

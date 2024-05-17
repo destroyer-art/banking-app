@@ -9,5 +9,6 @@ export const setSecurityHeadersMiddleware = (
   request.headers["Strict-Transport-Security"] =
     "max-age=15552000; includeSubDomains";
   request.headers["X-XSS-Protection"] = "0";
+
   return h.continue;
 };

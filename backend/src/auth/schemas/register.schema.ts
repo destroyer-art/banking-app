@@ -5,7 +5,7 @@ const passwordRegex =
 const passwordError =
   "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character, and be at least 8 characters long";
 
-export const createCustomerSchema = Joi.object({
+export const registerSchema = Joi.object({
   email: Joi.string().required(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),

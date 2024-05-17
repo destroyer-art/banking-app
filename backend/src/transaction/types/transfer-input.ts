@@ -1,4 +1,4 @@
 export class TransferInput {
-  readonly targetGSMNumber: string;
-  readonly amount: number;
+   targetGSMNumber: string;
+   amount: number;
 }

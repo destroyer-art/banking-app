@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useState } from "react";
-import { register } from "../../api/register";
+import { registerCustomer } from "../../api/register";
 import { AlertStatus, RegisterInput } from "../../types/types";
 import { registerSchema } from "../../schemas/register.schema";
 import { Notification } from "../notification/notification";
@@ -21,6 +21,7 @@ const Register: React.FC = () => {
   };
 
   const handleSubmit = async (values: RegisterInput, actions: any) => {
+    console.log(values);
     await registerCustomer(values, setNotification);
     actions.setSubmitting(false);
   };
@@ -36,7 +37,7 @@ const Register: React.FC = () => {
         >
           {() => (
             <Form>
-              <div className="my-2">
+              <div className="my-6">
                 <label
                   htmlFor="firstName"
                   className="block text-sm font-medium text-gray-700"
@@ -56,7 +57,7 @@ const Register: React.FC = () => {
                 />
               </div>
 
-              <div className="my-2">
+              <div className="my-6">
                 <label
                   htmlFor="last"
                   className="block text-sm font-medium text-gray-700"
@@ -75,8 +76,8 @@ const Register: React.FC = () => {
                   className="text-red-500"
                 />
               </div>
-
-              <div className="my-2">
+              
+              <div className="my-6">
                 <label
                   htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
@@ -96,7 +97,7 @@ const Register: React.FC = () => {
                 />
               </div>
 
-              <div className="my-2">
+              <div className="my-6">
                 <label
                   htmlFor="password"
                   className="block text-sm font-medium text-gray-700"
@@ -116,7 +117,7 @@ const Register: React.FC = () => {
                 />
               </div>
 
-              <div className="my-2">
+              <div className="my-6">
                 <label
                   htmlFor="dateOfBirth"
                   className="block text-sm font-medium text-gray-700"
@@ -136,7 +137,7 @@ const Register: React.FC = () => {
                 />
               </div>
 
-              <div className="my-2">
+              <div className="my-6">
                 <label
                   htmlFor="gsmNumber"
                   className="block text-sm font-medium text-gray-700"

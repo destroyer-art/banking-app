@@ -2,11 +2,22 @@ import { Request } from "@hapi/hapi";
 import { ResponseToolkit } from "@hapi/hapi/lib/types";
 import { genSalt, hash } from "bcryptjs";
 import { appDataSource } from "../../db/database";
-import { ErrorMessages } from "../../transaction/services/helper";
-import { Customer } from "../domain/models/customer.model";
+import { ErrorMessages } from "../../shared/constants/error-messages";
+import { Customer } from "../../customer/domain/models/customer.model";
 import { RegisterInput } from "../types/register-input";
 
-export const registerCustomer = async (req: Request, h: ResponseToolkit) => {
+/*
+
+********************** REGISTRATION LOGIC ********************** 
+
+1. check if GSMNumber is already exist in the database, if not, return GSM_NUMBER_ALREADY_EXIST message
+2. check if email is already exist in the database, if not, return EMAIL_ALREADY_EXIST message
+3. hash the password
+4. save the customer to the database
+5. return success message with the customer ID
+*/
+
+export const register = async (req: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {

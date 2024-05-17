@@ -1,9 +1,16 @@
 import { Request } from "@hapi/hapi";
 import { ResponseToolkit } from "@hapi/hapi/lib/types";
 import { appDataSource } from "../../db/database";
-import { ErrorMessages } from "../../transaction/services/helper";
+import { ErrorMessages } from "../../shared/constants/error-messages";
 import { Customer } from "../domain/models/customer.model";
 import { CustomerOutput } from "customer/types/customer-output";
+
+/*
+1. fetch the customer ID from the Token
+2. fetch the customer from the database using the Customer ID
+3. check if the customer is not found, return CUSTOMER_NOT_FOUND message
+4. return the customer details excluding the password, emailVerified, createdAt
+*/
 
 export const getCustomer = async (request: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();

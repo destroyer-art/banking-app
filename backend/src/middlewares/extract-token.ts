@@ -1,7 +1,7 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
 import { JwtPayload } from "auth/types/jwt-payload";
 import { decodeJwtToken } from "../auth/services/auth.service";
-import { ErrorMessages } from "../transaction/services/helper";
+import { ErrorMessages } from "../shared/constants/error-messages";
 
 export const extractTokenMiddleware = (
   request: Request,

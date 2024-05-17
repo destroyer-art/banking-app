@@ -1,6 +1,6 @@
 import { Request, ResponseToolkit } from "@hapi/hapi";
 import { RateLimiterMemory } from "rate-limiter-flexible";
-import { ErrorMessages } from "../transaction/services/helper";
+import { ErrorMessages } from "../shared/constants/error-messages";
 
 const rateLimiter = new RateLimiterMemory({
   points: 5, // max number of the requests

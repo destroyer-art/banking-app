@@ -19,14 +19,6 @@
     "baseUrl": "./src",
     "incremental": false, 
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "paths": {
-      "@config/*": [
-        "config/*"
-      ],
-      "@modules/*": [
-        "modules/*"
-      ]
-    },
+    "resolveJsonModule": true
   }
 }

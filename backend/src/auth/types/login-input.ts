@@ -1,4 +1,4 @@
 export class LoginInput {
-  readonly email: string;
-  readonly password: string;
+  email: string;
+  password: string;
 }

@@ -4,8 +4,25 @@ import { appDataSource } from "../../db/database";
 import { TransactionStatus } from "../domain/enums/transaction-status";
 import { TransactionType } from "../domain/enums/transaction-type";
 import { Transaction } from "../domain/models/transaction.model";
-import { ErrorMessages, makePayment, sendResponse } from "./helper";
+import { ErrorMessages } from "../../shared/constants/error-messages";
+import { makePayment, sendResponse } from "./transaction.service";
 import { PurchaseInput } from "../types/purchase-input";
+
+/*
+
+********************** PURCHASE LOGIC ********************** 
+1. Start the transaction
+2. fetch the customer id from the Token
+3. check if the customer has enough balance and if not return INSUFFICENT_BALANCE error
+4. create a new transaction with the type PURCHASE with PENDING Status
+5. make a payment (Integration with Payment Provider)
+6. update the transaction status based on the payment status
+7. update the customer balance (- Amount)
+8. commit the transaction
+9. send the Response to the end user
+10. handle the errors and rollback the transaction if any error occurs
+
+*/
 
 export const purchase = async (request: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
@@ -21,10 +38,7 @@ export const purchase = async (request: Request, h: ResponseToolkit) => {
     const customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
-
-    if (!customer) {
-      return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);
-    }
+ 
 
     if (customer.balance < amount) {
       return h.response(ErrorMessages.INSUFFICENT_BALANCE).code(400);

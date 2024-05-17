@@ -5,27 +5,38 @@ import { TransactionStatus } from "../domain/enums/transaction-status";
 import { TransactionType } from "../domain/enums/transaction-type";
 import { Transaction } from "../domain/models/transaction.model";
 import { RefundInput } from "../types/refund-input";
-import {
-  ErrorMessages,
-  getTransactionByNumber,
+import {  ErrorMessages, 
+} from "../../shared/constants/error-messages";
+import {  getTransactionByNumber,
   makePayment,
-  sendResponse,
-} from "./helper";
+  sendResponse} from "../services/transaction.service"
 
 /*
-*********** REFUND LOGIC *********** 
-1) Find Current Customer (User who triggered the refund) based on Customer ID
-2) Find Purchased Transaction based on Transaction Number (This is not Transaction ID, it is Transaction Number)
-3) Create a new Transaction with PENDING status
-4) Update Transaction Status based on Payment Status
-5) top UP Customer balance
-6) Send Transaction Information to the end user about current operation
+
+********************** REFUND LOGIC ********************** 
+1.  Start the transaction
+2.  fetch the customer id from the Token
+3.  fetch purchasedTransaction by transactionNumber
+4.  check if the purchasedTransaction exists and if not return TRANSACTION_NOT_FOUND error
+5.  check if the purchasedTransaction is already refunded and if yes return ALREADY_REFOUNDED error
+6.  update the purchasedTransaction status to RETURNED
+7.  create a new transaction with the type REFUND with PENDING Status
+8.  make a payment (Integration with Payment Provider)
+9.  update the transaction status based on the payment status
+10. update the customer balance (+ Amount)
+11. commit the transaction
+12. send the Response to the end user
+13. handle the errors and rollback the transaction if any error occurs
+
 */
 
 export const refund = async (request: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
 
   try {
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     const { transactionNumber } = request.payload as RefundInput;
 
     const customerId = request.auth["customer"].id;
@@ -33,11 +44,7 @@ export const refund = async (request: Request, h: ResponseToolkit) => {
     const customer = await queryRunner.manager.findOne(Customer, {
       where: { id: customerId },
     });
-
-    if (!customer) {
-      return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);
-    }
-
+ 
     const purchasedTransaction: Transaction = await getTransactionByNumber(
       transactionNumber,
       queryRunner
@@ -84,10 +91,15 @@ export const refund = async (request: Request, h: ResponseToolkit) => {
 
     await queryRunner.manager.save(Customer, customer);
 
+    await queryRunner.commitTransaction();
+
     // Send Response to the end User about Opearion
     return sendResponse(transaction, h);
   } catch (error) {
+    await queryRunner.rollbackTransaction();
     console.error("Error processing refund:", error);
     return h.response("Error processing refund").code(500);
+  } finally {
+    await queryRunner.release();
   }
 };

@@ -8,8 +8,8 @@ export const initDatabase = async () => {
   try {
     await appDataSource.initialize();
 
-    console.log("Data Source has been initialized!");
+    console.log("Database connection has been initialized!");
   } catch (error) {
-    console.error("Error during Data Source initialization", error);
+    console.error("Error during Database initialization", error);
   }
 };

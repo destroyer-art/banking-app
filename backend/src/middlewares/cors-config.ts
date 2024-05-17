@@ -1,5 +1,7 @@
+import { WEB_BASE_URL } from "../config/environment";
+
 export const corsConig = {
-  origin: ["http://localhost:5173"],
+  origin: [WEB_BASE_URL],
   headers: ["Authorization", "Content-Type"],
   additionalHeaders: ["x-requested-with"],
   exposedHeaders: ["WWW-Authenticate", "Server-Authorization"],

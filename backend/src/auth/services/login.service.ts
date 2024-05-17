@@ -3,20 +3,21 @@ import { ResponseToolkit } from "@hapi/hapi/lib/types";
 import { Customer } from "../../customer/domain/models/customer.model";
 import { appDataSource } from "../../db/database";
 import { LoginInput } from "../types/login-input";
-import { checkValidations } from "./validation.service";
 import { JwtPayload } from "auth/types/jwt-payload";
-import { generateJwtTokenAsync } from "./auth.service";
-
+import { generateJwtTokenAsync, checkValidations } from "./auth.service";
 
 /*
+
+********************** LOGIN LOGIC ********************** 
+
 1. Extract the email and password from the req.payload object
-2. The login function uses the appDataSource object to create a queryRunner object.
-3. Find a customer with the specified email address.
-4. If the customer login first time and customer's email has not been verified, update customer's emailVerified = true
-5. Check if the password is valid.
-6. If the password is invalid, return a 403 status code.
-7. Generate a JWT token using the generateJwtTokenAsync function based on customer's information.
-8. Return the JWT token back.
+2. Find a customer with the specified email address.
+3. If the customer logins first time and customer's email has not been verified, update customer's emailVerified = true
+4. Check if the password is valid.
+5. If the password is invalid, return a 403 status code.
+6. Generate a JWT token using the generateJwtTokenAsync function based on customer's information.
+7. Return the JWT token back.
+
 */
 
 export const login = async (req: Request, h: ResponseToolkit) => {

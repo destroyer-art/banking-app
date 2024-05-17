@@ -1,4 +1,3 @@
-// src/entities/Transaction.ts
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -28,10 +27,10 @@ export class Transaction implements IAuditableEntity {
   @Column()
   amount: number;
 
-  @Column({ name: "type" })
+  @Column()
   type: TransactionType;
 
-  @Column({ name: "status", default: TransactionStatus.PENDING })
+  @Column({ default: TransactionStatus.PENDING })
   status: TransactionStatus;
 
   @CreateDateColumn({ name: "created_at", type: "timestamp with time zone" })

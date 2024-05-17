@@ -5,7 +5,7 @@ import { fetchCustomer } from "./fetch-customer";
 
 export const login = async (payload: LoginInput, setNotification: any) => {
   try {
-    const { data: token } = await getAxiosInstance().post("login", payload);
+    const { data: token } = await getAxiosInstance().post("auth/login", payload);
 
     setToken(token);
 
