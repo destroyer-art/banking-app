@@ -12,7 +12,7 @@ export enum ErrorMessages {
   GSM_NUMBER_ALREADY_EXIST = "Gsm Number has already exist!",
   EMAIL_OR_PASSWORD_IS_INCORRECT = "Email or password is incorrect!",
   EMAIL_IS_NOT_VERIFIED = "Email is not verified!",
-  ALREADY_REFOUNDED = "Already Refunded",
+  ALREADY_REFUNDED = "Already Refunded",
   TRANSACTION_NOT_FOUND = "Transaction not found!",
   TOKEN_NOT_FOUND_IN_HEADERS = "Token not found in headers!",
   TOKEN_VERIFICATION_ERROR = "Token verification error!",

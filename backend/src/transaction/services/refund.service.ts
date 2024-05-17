@@ -21,7 +21,7 @@ import { QueryRunner } from "typeorm";
 2.  fetch the customer id from the Token
 3.  fetch purchasedTransaction by transactionNumber
 4.  check if the purchasedTransaction exists and if not return TRANSACTION_NOT_FOUND error
-5.  check if the purchasedTransaction is already refunded and if yes return ALREADY_REFOUNDED error
+5.  check if the purchasedTransaction is already refunded and if yes return ALREADY_REFUNDED error
 6.  update the purchasedTransaction status to RETURNED
 7.  create a new transaction with the type REFUND with PENDING Status
 8.  make a payment (Integration with Payment Provider)
@@ -58,7 +58,7 @@ export const refund = async (request: Request, h: ResponseToolkit) => {
     }
 
     if (purchasedTransaction.status === TransactionStatus.RETURNED) {
-      return h.response(ErrorMessages.ALREADY_REFOUNDED).code(400);
+      return h.response(ErrorMessages.ALREADY_REFUNDED).code(400);
     }
 
     purchasedTransaction.status = TransactionStatus.RETURNED;
