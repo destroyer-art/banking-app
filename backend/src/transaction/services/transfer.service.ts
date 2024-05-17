@@ -6,6 +6,7 @@ import { Transaction } from "../domain/models/transaction.model";
 import { TransferInput } from "../types/transfer-input";
 import { ErrorMessages } from "../../shared/constants/error-messages";
 import { makePayment, sendResponse } from "./transaction.service";
+import { QueryRunner } from "typeorm";
 
 /*
 

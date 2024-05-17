@@ -15,6 +15,8 @@ export const login = async (payload: LoginInput, setNotification: any) => {
       message: "Succesfully Logged In...",
       status: AlertStatus.SUCCESS,
     });
+
+    window.location.reload()
   } catch (error: any) {
 
     let errorMessage = "";

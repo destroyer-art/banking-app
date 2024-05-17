@@ -12,7 +12,7 @@ const phoneError =
   "GSM Number must start with +994 and contain 9 digits after the country code";
 
 export const registerSchema = Yup.object({
-  email: Yup.string().required("Email is required"),
+  email: Yup.string().email().required("Email is required"),
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),
   password: Yup.string()
@@ -23,7 +23,7 @@ export const registerSchema = Yup.object({
     .test("DOB", "You must be at least 18 years old", (value) => {
       return new Date().getFullYear() - new Date(value).getFullYear() >= 18;
     }),
-  // gsmNumber: Yup.string()
-  //   .required("GSM(Phone) Number is required")
-  //   .matches(phoneRegex, phoneError),
+  gsmNumber: Yup.string()
+    .required("GSM(Phone) Number is required")
+    .matches(phoneRegex, phoneError),
 });
