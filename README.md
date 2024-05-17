@@ -18,29 +18,26 @@ There are detailed informations about each service:   Check README.MD file insid
 
 
 
-# LIbraries
+## LIbraries
 
-@hapi/hapi      -> The Hapi framework.
-joi             -> For payload validation.
-bcrypt          -> For hashing passwords.
-hapi-auth-jwt2  -> For JWT authentication.
-
-
-
-# Backend Endpoints:
-
-export enum Routes {
-  LOGIN = "login",
-  REGISTER = "register",
-  TOP_UP = "top-up",
-  PURCHASE = "purchase",
-  REFUND = "refund",
-  TRANSFER = "transfer",
-  CUSTOMERS = "customers",
-}
+@hapi/hapi            -> The Hapi framework.
+@hapi/joi             -> Payload validation.
+@hapi/boom            -> Error Handling
+bcrypt                -> For hashing passwords.
+hapi-auth-jwt2        -> For JWT authentication.
+typeorm               -> ORM
+nodemon               -> Auto Restart
+pg                    -> Connection to Postgres
+mssql                 -> Connection to MSSQL
+jsonwebtoken          -> Authentication and Authorization
+rate-limiter-flexible -> Rate Limit Middleware
 
 
-## LOGIN Endpoint Logic:
+
+## Backend Endpoints and Logics:
+ 
+
+### LOGIN Endpoint Logic:
 
 1. Extract the email and password from the req.payload object
 2. Find a customer with the specified email address.
@@ -52,7 +49,8 @@ export enum Routes {
 
 
 
-## REGISTER Endpoint Logic:
+
+### REGISTER Endpoint Logic:
 
 1. Extract the email and password from the req.payload object
 2. Find a customer with the specified email address.
@@ -64,7 +62,8 @@ export enum Routes {
 
 
 
-## PURCHASE Endpoint Logic:
+
+### PURCHASE Endpoint Logic:
 
 1. Start the transaction
 2. fetch the customer id from the Token
@@ -79,7 +78,8 @@ export enum Routes {
 
 
 
-## REFUND Endpoint Logic:
+
+### REFUND Endpoint Logic:
 
 1.  Start the transaction
 2.  fetch the customer id from the Token
@@ -97,7 +97,8 @@ export enum Routes {
 
 
 
-## TOP UP Endpoint Logic:
+
+### TOP UP Endpoint Logic:
 
 1. Start the transaction
 2. fetch the customer id from the Token
@@ -111,7 +112,8 @@ export enum Routes {
 
 
 
-## TRANSFER Endpoint Logic:
+
+### TRANSFER Endpoint Logic:
 
 1.  Start the transaction
 2.  fetch the customer id from the Token
@@ -128,4 +130,11 @@ export enum Routes {
 13. send the Response to the end user
 14. handle the errors and rollback the transaction if any error occurs
 
+
+### GET Customer(Current Customer) Endpoint Logic:
+
+1. fetch the customer ID from the Token
+2. fetch the customer from the database using the Customer ID
+3. check if the customer is not found, return CUSTOMER_NOT_FOUND message
+4. return the customer details excluding the password, emailVerified, createdAt
 
