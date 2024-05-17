@@ -1,18 +1,20 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, MenuItem, Sidebar } from "react-pro-sidebar";
-import { getCurrentCustomer } from "./auth/auth";
+import { getCustomerData } from "./auth/auth";
 import Login from "./components/login/Login";
 import Purchase from "./components/purchase/Purchase";
 import Refund from "./components/refund/Refund";
 import Register from "./components/register/Register";
 import TopUp from "./components/top-up/TopUp";
 import Transfer from "./components/transfer/Transfer";
-import { JwtPayload } from "./types/types";
+import { CustomerOutput } from "./types/types";
 
 function App() {
-  let jwtPayload: JwtPayload | null = getCurrentCustomer();
+  const [authData, setAuthData] = useState<CustomerOutput | null>(null);
 
-  console.log({ jwtPayload });
+  useEffect(() => {
+    setAuthData(getCustomerData());
+  }, [localStorage.getItem("customer_data")]);
 
   const [selectedMenuItem, setSelectedMenuItem] = useState("");
 
@@ -44,20 +46,20 @@ function App() {
       <div className="flex h-4/5 w-9/12 bg-slate-800">
         <div className="bg-blue-200" style={{ width: "25%" }}>
           <Sidebar className="h-full" style={{ width: "100%" }}>
-            {jwtPayload && (
+            {authData && (
               <b>
-                <div className="flex-row flex p-2 m-4">
+                <div className="flex-row flex p-2 ml-4">
                   <span>
-                    Hey, {`${jwtPayload?.firstName} ${jwtPayload?.lastName}`}
+                    Hey, {`${authData?.firstName} ${authData?.lastName}`}
                   </span>
                 </div>
 
-                <div className="flex-row flex p-2 m-4">
-                  <span>{`Balance: ${jwtPayload?.balance} AZN`}</span>
+                <div className="flex-row flex p-2  ml-4">
+                  <span>{`Balance: ${authData?.balance} AZN`}</span>
                 </div>
 
-                <div className="flex-row flex p-2 m-4">
-                  <span>{`GSM Number: ${jwtPayload?.gsmNumber}`}</span>
+                <div className="flex-row flex p-2 ml-4">
+                  <span>{`GSM Number: ${authData?.gsmNumber}`}</span>
                 </div>
               </b>
             )}

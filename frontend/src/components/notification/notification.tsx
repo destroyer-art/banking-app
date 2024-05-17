@@ -9,7 +9,6 @@ export function Notification({
   message: string;
   status: AlertStatus;
 }) {
-  console.log({ status });
   return (
     <Stack sx={{ width: "100%" }} spacing={2}>
       <Alert variant="filled" severity={status}>

@@ -17,7 +17,6 @@ const Transfer: React.FC = () => {
   };
 
   const handleSubmit = async (values: TransferInput, actions: any) => {
-    console.log(values);
     await transfer(values, setNotification);
     actions.setSubmitting(false);
   };

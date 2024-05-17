@@ -6,12 +6,9 @@ export const registerCustomer = async (
   setNotification: any
 ) => {
   try {
-    const { data: message } = await getAxiosInstance().post(
-      "customers",
-      payload
-    );
+    const { data } = await getAxiosInstance().post("customers", payload);
 
-    setNotification({ message: message, status: AlertStatus.SUCCESS });
+    setNotification({ message: data, status: AlertStatus.SUCCESS });
   } catch (error: any) {
     const errorMessage = error.response.data || "Failed to register";
     console.log({ error });

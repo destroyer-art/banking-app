@@ -17,7 +17,6 @@ const Login: React.FC = () => {
   };
 
   const handleSubmit = async (values: LoginInput, actions: any) => {
-    console.log(values);
     await login(values, setNotification);
     actions.setSubmitting(false);
   };

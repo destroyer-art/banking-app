@@ -1,4 +1,4 @@
-import { JwtPayload } from "../types/types";
+import { CustomerOutput, JwtPayload } from "../types/types";
 import { jwtDecode } from "jwt-decode";
 
 export const JWT_SECRET = "HBOIU0i09mIU2@n[09";
@@ -8,18 +8,33 @@ export const getToken = () => {
 };
 
 export const setToken = (token: string) => {
-  const tokenn = localStorage.setItem("auth_token", token);
-  console.log({ token, tokenn });
-
-  return tokenn;
+  if (localStorage.getItem("auth_token")) {
+    localStorage.removeItem("auth_token");
+  }
+  localStorage.setItem("auth_token", token);
 };
 
 export const getCurrentCustomer = (): JwtPayload | null => {
   const token: string | null = getToken();
   if (token) {
-    const payload = jwtDecode(`${token}`) as JwtPayload;
-    console.log({ payload });
-    return payload;
+    return jwtDecode(`${token}`) as JwtPayload;
+  } else {
+    return null;
+  }
+};
+
+export const setCustomerData = (customer: any): void => {
+  if (localStorage.getItem("customer_data")) {
+    localStorage.removeItem("customer_data");
+  }
+  localStorage.setItem("customer_data", JSON.stringify(customer));
+};
+
+export const getCustomerData = (): CustomerOutput | null => {
+  const data: string | null = localStorage.getItem("customer_data");
+
+  if (data) {
+    return JSON.parse(data) as CustomerOutput;
   } else {
     return null;
   }

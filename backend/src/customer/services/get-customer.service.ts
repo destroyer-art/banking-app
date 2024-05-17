@@ -3,6 +3,7 @@ import { ResponseToolkit } from "@hapi/hapi/lib/types";
 import { appDataSource } from "../../db/database";
 import { ErrorMessages } from "../../transaction/services/helper";
 import { Customer } from "../domain/models/customer.model";
+import { CustomerOutput } from "customer/types/customer-output";
 
 export const getCustomer = async (request: Request, h: ResponseToolkit) => {
   const queryRunner = appDataSource.createQueryRunner();
@@ -18,7 +19,11 @@ export const getCustomer = async (request: Request, h: ResponseToolkit) => {
       return h.response(ErrorMessages.CUSTOMER_NOT_FOUND).code(404);
     }
 
-    return h.response(customer);
+    const { password, emailVerified, createdAt, ...rest } = customer;
+
+    const output: CustomerOutput = { ...rest };
+
+    return h.response(output);
   } catch (error) {
     console.error("Error processing fetch Customer:", error);
     return h.response("Error processing fetch Customer").code(500);

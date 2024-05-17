@@ -17,7 +17,6 @@ const TopUp: React.FC = () => {
   };
 
   const handleSubmit = async (values: TopUPInput, actions: any) => {
-    console.log(values);
     await topUpBalance(values, setNotification);
     actions.setSubmitting(false);
   };

@@ -58,3 +58,12 @@ export interface JwtPayload {
   email: string;
   balance: number;
 }
+
+export interface CustomerOutput {
+  email: string;
+  firstName: string;
+  lastName: string;
+  gsmNumber: string;
+  dateOfBirth: Date;
+  balance: number;
+}

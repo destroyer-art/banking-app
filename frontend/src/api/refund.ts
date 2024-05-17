@@ -1,9 +1,12 @@
 import { AlertStatus, RefundInput } from "../types/types";
 import { getAxiosInstance } from "./axios-instance";
-
+import { fetchCustomer } from "./fetch-customer";
+ 
 export const refund = async (payload: RefundInput, setNotification: any) => {
   try {
     const { data } = await getAxiosInstance().post("refund", payload);
+
+    await fetchCustomer();
 
     setNotification({
       message: JSON.stringify(data),

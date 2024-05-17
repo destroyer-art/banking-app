@@ -13,8 +13,6 @@ export const getAxiosInstance = () => {
 
   const authToken = getToken();
 
-  console.log({ authToken });
-
   if (authToken) {
     axiosConfig.headers["Authorization"] = `Bearer ${authToken}`;
   }

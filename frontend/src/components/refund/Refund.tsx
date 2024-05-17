@@ -16,7 +16,6 @@ const Refund: React.FC = () => {
   });
 
   const handleSubmit = async (values: RefundInput, actions: any) => {
-    console.log(values);
     await refund(values, setNotification);
     actions.setSubmitting(false);
   };

@@ -1,5 +1,6 @@
 import { AlertStatus, TransferInput } from "../types/types";
 import { getAxiosInstance } from "./axios-instance";
+import { fetchCustomer } from "./fetch-customer";
 
 export const transfer = async (
   payload: TransferInput,
@@ -7,6 +8,8 @@ export const transfer = async (
 ) => {
   try {
     const { data } = await getAxiosInstance().post("transfer", payload);
+
+    await fetchCustomer();
 
     setNotification({
       message: JSON.stringify(data),

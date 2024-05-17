@@ -23,7 +23,6 @@ const Purchase: React.FC = () => {
   });
 
   const handleSubmit = async (values: PurchaseInput, actions: any) => {
-    console.log(values);
     await purchase(values, setNotification);
     actions.setSubmitting(false);
   };
