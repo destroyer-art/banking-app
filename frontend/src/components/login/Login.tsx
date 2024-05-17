@@ -12,7 +12,7 @@ const Login: React.FC = () => {
   });
 
   const initialValues: LoginInput = {
-    email: "pashazade.nazar@gmail.com",
+    email: "",
     password: "",
   };
 

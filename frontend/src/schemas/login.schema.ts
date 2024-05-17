@@ -7,7 +7,7 @@ const passwordError =
 
 export const loginSchema = Yup.object({
   email: Yup.string().required("Username is required"),
-  // password: Yup.string()
-  //   .required("Password is required")
-  //   .matches(passwordRegex, passwordError),
+  password: Yup.string()
+    .required("Password is required")
+    .matches(passwordRegex, passwordError),
 });

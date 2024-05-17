@@ -1,9 +1,12 @@
 # banking-app
 This is a Full Stack JS App (Node.js, Hapi.js, React.js, TypeScript)
 
- 
-## How to run Database Locally with Docker? 
 
+
+# Backend Owerview:
+
+
+## How to run Database Locally with Docker? 
 
 #### They are 2 options: 
 
@@ -147,4 +150,10 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 3. check if the customer is not found, return CUSTOMER_NOT_FOUND message
 4. return the customer details excluding the password, emailVerified, createdAt
 
- 
+
+
+# Frontend Owerview:
+
+1. React, Typescript, Vite, Tailwind, Formik, MUI
+2. Using LocalStorage to store the JWTToken
+3. Input VAlidations
