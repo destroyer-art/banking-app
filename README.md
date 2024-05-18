@@ -13,7 +13,7 @@
 # Backend Owerview:
 
 
-## How to run Database Locally with Docker? 
+## How to run Database locally on Docker? 
 
 #### They are 2 options: 
 
@@ -22,7 +22,7 @@
 
 There are detailed informations about each service:   
 
-Check README.MD file inside the specific(database/mssql-server, database/postgres-pgadmin) folders
+Check README.MD file inside the specific folders(database/mssql-server, database/postgres-pgadmin) 
 
 
 
@@ -46,7 +46,7 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 4. API Rate Limiter Middleware (429 TOO Many Requests)
 5. Input Validations (Front and Back)
 6. Password Hashing and Strong Password validation
-7. Adding Secority Headers
+7. Adding Security Headers
 
 
 
@@ -83,28 +83,26 @@ Check README.MD file inside the specific(database/mssql-server, database/postgre
 
 ### REGISTER Endpoint Logic:
 
-1. Extract the email and password from the req.payload object
-2. Find a customer with the specified email address.
-3. If the customer logins first time and customer's email has not been verified, update customer's emailVerified = true
-4. Check if the password is valid.
-5. If the password is invalid, return a 403 status code.
-6. Generate a JWT token using the generateJwtTokenAsync function based on customer's information.
-7. Return the JWT token back.
+1. check if GSMNumber is already exist in the database, if not, return GSM_NUMBER_ALREADY_EXIST message
+2. check if email is already exist in the database, if not, return EMAIL_ALREADY_EXIST message
+3. hash the password
+4. save the customer to the database
+5. return success message with the customer ID
 
 
 
 
 ### PURCHASE Endpoint Logic:
 
-1. Start the transaction
-2. fetch the customer id from the Token
-3. check if the customer has enough balance and if not return INSUFFICENT_BALANCE error
-4. create a new transaction with the type PURCHASE with PENDING Status
-5. make a payment (Integration with Payment Provider)
-6. update the transaction status based on the payment status
-7. update the customer balance (- Amount)
-8. commit the transaction
-9. send the Response to the end user
+1.  Start the transaction
+2.  fetch the customer id from the Token
+3.  check if the customer has enough balance and if not return INSUFFICENT_BALANCE error
+4.  create a new transaction with the type PURCHASE with PENDING Status
+5.  make a payment (Integration with Payment Provider)
+6.  update the transaction status based on the payment status
+7.  update the customer balance (- Amount)
+8.  commit the transaction
+9.  send the Response to the end user
 10. handle the errors and rollback the transaction if any error occurs
 
 
