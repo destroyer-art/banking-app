@@ -31,10 +31,10 @@ export class Customer implements IAuditableEntity {
   @Column({ default: 100 })
   balance: number;
 
-  @CreateDateColumn({ name: "date_of_birth", type: "timestamp with time zone" })
+  @Column({ type: "date" })
   dateOfBirth: Date;
 
-  @CreateDateColumn({ name: "created_at", type: "timestamp with time zone" })
+  @CreateDateColumn({ name: "created_at" })
   createdAt: Date;
 
   @Column({ name: "email_verified", default: false })

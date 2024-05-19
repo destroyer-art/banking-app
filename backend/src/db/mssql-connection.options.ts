@@ -20,5 +20,6 @@ export const mssqlConfig: ConnectionOptions = {
   synchronize: true,
   options: {
     encrypt: false,
+    enableArithAbort: true,
   },
 };

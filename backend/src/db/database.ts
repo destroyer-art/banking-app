@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm";
-import { postgresConfig } from "./postgres-connection.options";
-// import { mssqlConfig } from "./mssql-connection.options";
+// import { postgresConfig } from "./postgres-connection.options";
+import { mssqlConfig } from "./mssql-connection.options";
 
-export const appDataSource = new DataSource(postgresConfig);
+export const appDataSource = new DataSource(mssqlConfig);
 
 export const initDatabase = async () => {
   try {

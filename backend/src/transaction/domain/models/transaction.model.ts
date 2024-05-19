@@ -33,6 +33,6 @@ export class Transaction implements IAuditableEntity {
   @Column({ default: TransactionStatus.PENDING })
   status: TransactionStatus;
 
-  @CreateDateColumn({ name: "created_at", type: "timestamp with time zone" })
+  @CreateDateColumn({ name: "created_at"})
   createdAt: Date;
 }
